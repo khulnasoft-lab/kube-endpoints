@@ -7,8 +7,7 @@ From version v0.2.0 onwards, all domains are khulnasoft-lab.github.io.
 Version v0.2.1 adjusted the Hosts configuration. Pay attention during the upgrade.
 You can also manually execute the script with the namespace set to xxx:
 
-## shell
-Copy code
+shell
 for cep in $(kubectl get cep -n xxx  -o jsonpath={.items[*].metadata.name});do kubectl patch cep -n xxx --type='json' -p='[{"op": "replace", "path": "/metadata/finalizers", "value":[]}]'  $cep;done
 It is recommended to back up resources before upgrading, delete the existing custom resource (cr), and then recreate it.
 
