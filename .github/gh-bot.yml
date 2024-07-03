@@ -6,7 +6,7 @@ action:
     retry: 15s
     actionName: Release
     allowOps:
-      - cuisongliu
+      - nxpkg
 bot:
   prefix: /
   spe: _

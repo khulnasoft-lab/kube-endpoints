@@ -13,7 +13,7 @@
 # limitations under the License.
 
 FROM alpine:latest
-MAINTAINER "cuisongliu <cuisongliu@qq.com>"
+MAINTAINER "nxpkg <iconmamundentist@gmail.com>"
 
 ENTRYPOINT ["/root/kube-endpoints"]
 
