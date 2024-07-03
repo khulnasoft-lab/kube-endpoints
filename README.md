@@ -7,8 +7,9 @@ From version v0.2.0 onwards, all domains are khulnasoft-lab.github.io.
 Version v0.2.1 adjusted the Hosts configuration. Pay attention during the upgrade.
 You can also manually execute the script with the namespace set to xxx:
 
-shell
+```
 for cep in $(kubectl get cep -n xxx  -o jsonpath={.items[*].metadata.name});do kubectl patch cep -n xxx --type='json' -p='[{"op": "replace", "path": "/metadata/finalizers", "value":[]}]'  $cep;done
+```
 It is recommended to back up resources before upgrading, delete the existing custom resource (cr), and then recreate it.
 
 ## Background
@@ -37,20 +38,19 @@ Primarily used when Pods within a cluster need to access external services, such
 
 ## Helm Installation
 
-bash
-Copy code
+```
 VERSION="0.2.1"
 wget https://github.com/khulnsoft-lab/kube-endpoints/releases/download/v${VERSION}/kube-endpoints-${VERSION}.tgz
 helm install -n kube-system kube-endpoints ./kube-endpoints-${VERSION}.tgz
-Sealos Installation
+```
 
-bash
-Copy code
+## Sealos Installation
+```
 sealos run khulnsoft-lab/kube-endpoints:v0.2.1
+```
 Usage
 
-yaml
-Copy code
+```
 apiVersion: khulnasoft-lab.github.io/v1beta1
 kind: ClusterEndpoint
 metadata:
@@ -113,6 +113,7 @@ spec:
       timeoutSeconds: 1
       failureThreshold: 3
       successThreshold: 1
+```
 ## Summary
 
 The introduction of "kube-endpoints" addresses the issue of accessing external services from within a cluster without intruding on the product and while maintaining cloud-native characteristics. This approach will likely become standard practice in future development or operations, offering an elegant solution to certain problems from a development perspective.
