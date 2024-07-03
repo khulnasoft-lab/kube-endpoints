@@ -1,0 +1,51 @@
+before:
+  hooks:
+    # You may remove this if you don't use go modules.
+    - go mod download
+    # you may remove this if you don't need go generate
+    - go generate ./...
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    main: ./cmd/kube-endpoints
+    ldflags:
+      - -X github.com/khulnasoft-lab/operator-sdk/version.gitVersion={{.Version}}
+      - -X github.com/khulnasoft-lab/operator-sdk/version.gitCommit={{.ShortCommit}}
+      - -X github.com/khulnasoft-lab/operator-sdk/version.buildDate={{.Date}}
+      - -s -w
+  - env:
+      - CGO_ENABLED=0
+    id: cepctl
+    binary: cepctl
+    goos:
+      - linux
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    main: ./cmd/cepctl
+    ldflags:
+      - -X github.com/khulnasoft-lab/operator-sdk/version.gitVersion={{.Version}}
+      - -X github.com/khulnasoft-lab/operator-sdk/version.gitCommit={{.ShortCommit}}
+      - -X github.com/khulnasoft-lab/operator-sdk/version.buildDate={{.Date}}
+      - -s -w
+release:
+  prerelease: auto
+  extra_files:
+    - glob: ./kube-endpoints*.tgz
+checksum:
+  name_template: '{{ .ProjectName }}_checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'

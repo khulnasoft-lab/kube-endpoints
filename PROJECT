@@ -1,0 +1,17 @@
+domain: sealos.io
+layout:
+- go.kubebuilder.io/v3
+multigroup: true
+projectName: kube-endpoints
+repo: github.com/khulnasoft-lab/kube-endpoints
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: sealos.io
+  group: network
+  kind: ClusterEndpoint
+  path: github.com/khulnasoft-lab/kube-endpoints/apis/network/v1beta1
+  version: v1beta1
+version: "3"
